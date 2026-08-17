@@ -127,20 +127,28 @@ const Dashboard = () => {
         setShowCamera(false);
     };
 
-    const capturePhoto = () => {
+    const capturePhoto = async () => {
         if (videoRef.current && canvasRef.current) {
-            const context = canvasRef.current.getContext('2d');
-            // Set canvas size to match video
-            canvasRef.current.width = videoRef.current.videoWidth;
-            canvasRef.current.height = videoRef.current.videoHeight;
-            context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
+            try {
+                const context = canvasRef.current.getContext('2d');
+                const width = videoRef.current.videoWidth || 640;
+                const height = videoRef.current.videoHeight || 480;
+                canvasRef.current.width = width;
+                canvasRef.current.height = height;
+                context.drawImage(videoRef.current, 0, 0, width, height);
 
-            canvasRef.current.toBlob((blob) => {
+                const dataUrl = canvasRef.current.toDataURL('image/jpeg', 0.9);
+                const response = await fetch(dataUrl);
+                const blob = await response.blob();
+                
                 const file = new File([blob], "camera-capture.jpg", { type: "image/jpeg" });
                 setImage(file);
                 setPreviewUrl(URL.createObjectURL(file));
                 stopCamera();
-            }, 'image/jpeg');
+            } catch (err) {
+                console.error("Camera capture failed", err);
+                setError("Failed to capture image from camera. Please try uploading a file instead.");
+            }
         }
     };
     // --------------------
