@@ -8,6 +8,8 @@
 [![React Version](https://img.shields.io/badge/react-%5E19.0.0-cyan)](frontend/package.json)
 [![TensorFlow Version](https://img.shields.io/badge/TensorFlow-2.15.0-orange)](requirements.txt)
 
+🔗 **Live Link**: [https://automated-skin-disease-detection-sy.vercel.app/](https://automated-skin-disease-detection-sy.vercel.app/)
+
 An enterprise-grade, full-stack artificial intelligence application designed to assist in dermatological assessments. Using a custom deep learning model built with TensorFlow/Keras and transfer learning, this system analyzes skin lesions to detect 6 different skin conditions with high accuracy, offering medical dos, don'ts, warnings, and patient progression tracking.
 
 ---
